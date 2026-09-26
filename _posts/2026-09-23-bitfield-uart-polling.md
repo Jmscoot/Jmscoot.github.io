@@ -20,5 +20,11 @@ Baud rate는 이 frame에서 비트의 전송속력을 의미한다.
 그리고 frame을 수신할 때 1bit를 그대로 받는게 아니라, 1bit를 8-oversampling 혹은 16-oversampling을 해서 수신한다.
 ![UART sampling rate](assets/img/_posts/2026-09-23-bitfield-uart-polling/스크린샷 2026-09-27 014725.png)
 
-example 1)
+## UART Receiver/Transmitter의 구조
+![Diagram](assets/img/_posts/2026-09-23-bitfield-uart-polling/스크린샷 2026-09-27 020426.png)
+좀 더 간략화한 구조는 아래와 같다...
+![Diagram2](assets/img/_posts/2026-09-23-bitfield-uart-polling/스크린샷 2026-09-27 020308.png)
+UART HW로 CLK이 Baud Generator로 input되고, output으로 BCLK을 만든다.
+
+## example 1)
 16-oversampling, Baud rate 115200[bit/sec]라고 한다면 BCLK=16[cycle/bit]*115200[bit/sec]=대략 1.84[Mega cycle/sec]=1.84[Mhz]
