@@ -30,13 +30,16 @@ Baud rate를 동일하게 설정한다.<br><br>
 Baud rate는 이 frame에서 비트의 전송속력을 의미한다.<br>
 그리고 frame을 수신할 때 1bit를 그대로 받는게 아니라, 1bit를 8-oversampling 혹은 16-oversampling을 해서 수신한다.<br>
 ![UART sampling rate](/assets/img/ti_uart_bitfield_polling/bclk.png)<br><br><br>
-## UART Receiver/Transmitter의 구조
 
-![Diagram](/assets/img/ti_uart_bitfield_polling/block_diagram2.png)
+## UART Receiver/Transmitter의 구조<br>
+![Diagram](/assets/img/ti_uart_bitfield_polling/block_diagram2.png)<br><br>
 
-좀 더 간략화한 구조는 아래와 같다...
-
-![Diagram2](/assets/img/ti_uart_bitfield_polling/block_diagram1.png)
+좀 더 간략화한 구조는 아래와 같다...<br>
+![Diagram2](/assets/img/ti_uart_bitfield_polling/parallel.png)<br>
+serial data송신(1bit씩)->송신 FIFO에 1bit씩 누적->송신 FIFO에 1Byte 데이터가 shift register에 1Byte 단위로 송신<br>
+->shift register의 값 1Byte를 Parallel to Serial(1bit 단위 송신)<br>
+->shift register로 1bit값이 누적되어 1Byte 저장->Serial to Parallel로 shift register의 1Byte 데이터가 Receiver FIFO로 송신<br>
+->Receiver FIFO에서 1bit 단위로 값을 꺼내옴<br><br>
 
 UART HW로 CLK이 Baud Generator로 input되고, output으로 BCLK을 만든다.
 
