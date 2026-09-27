@@ -12,7 +12,20 @@ IDE: CCS 21.0.1
 
 
 ## UART 프로토콜이란
-비동기 통신규약 중 하나이며 물리계층 인터페이스로 RS-232,422,485,TTL/CMOS가 주로 사용된다.
+장치간 데이터 전송을 비동기방식으로 수행하는 통신규약 중 하나이며,
+물리계층 인터페이스로 RS-232,422,485,TTL/CMOS가 주로 사용된다.
+
+비동기 방식의 특징으로 장치간 클럭 동기화가 돼있지 않고, 대신에 
+Baud rate를 동일하게 설정한다.
+
+선로가 길어질수록 케이블의 RC값(시정수)이 커져서, 엣지(과도구간)에서의 상승/하강 시간이
+늘어나고, 그 결과 start 엣지를 인식하는 시점이 밀리게 되고 그 뒤의 비트들도 전부 밀리게 된다.
+클럭이 아닌, Baud rate로 동기화하는 UART특성상 장거리 통신에 있어서 부정확하다는 단점이 있다.
+
+![UART tx/rx diagram](/assets/img/ti_uart_bitfield_polling/uart_diagram3.png)
+
+UART통신은 Half Duplex방식과 Full Duplex 방식 둘 중 선택이 가능하다.
+
 1 frame은 다음과 같이 구성되어 있다.
 
 ![UART 1 frame](/assets/img/ti_uart_bitfield_polling/frame.png)
