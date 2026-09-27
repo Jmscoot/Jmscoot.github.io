@@ -61,6 +61,9 @@ CLK이 Baud Generator로 input되고, output으로 BCLK을 만든다.
 3. SCI configuration<br>
 3.1 SCI clock config<br>
 3.2 SCI BAUD config<br>
+3.3 SCI data bit config<br>
+3.4 SCI TX, RX 활성화<br>
+3.5 SCI SWRESET<br>
 
 
 ## source code<br>
