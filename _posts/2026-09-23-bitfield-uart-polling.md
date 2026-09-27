@@ -42,7 +42,7 @@ serial data송신(1bit씩)->송신 FIFO에 1bit씩 누적->송신 FIFO에 1Byte 
 ->shift register로 1bit값이 누적되어 1Byte 저장->Serial to Parallel로 shift register의 1Byte 데이터가 Receiver FIFO로 송신<br>
 ->Receiver FIFO에서 1bit 단위로 값을 꺼내옴<br><br>
 
-CLK이 Baud Generator로 input되고, output으로 BCLK을 만든다.
+CLK이 Baud Generator로 input되고, output으로 BCLK을 만든다.<br>
 #### example 1
 16-oversampling, Baud rate 115200[bit/sec]라고 한다면 BCLK=16[cycle/bit]*115200[bit/sec]=대략 1.84[Mega cycle/sec]=1.84[Mhz]<br>
 
