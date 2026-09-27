@@ -37,7 +37,8 @@ social:
   name: Scott
   email: 1002seok@naver.com # change to your email address
   fediverse_handle: # fill in your fediverse handle. E.g. "@username@domain.com"
-  links: https://github.com/Jmscoot
+  links: 
+    - https://github.com/Jmscoot
 
 # Site Verification Settings
 webmaster_verifications:
