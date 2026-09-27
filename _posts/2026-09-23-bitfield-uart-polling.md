@@ -26,8 +26,7 @@ Baud rate를 동일하게 설정한다.<br><br>
 ![UART 1 frame](/assets/img/ti_uart_bitfield_polling/frame.png)<br>
 1 start bit+DATA BITS+1 stop bit로 구성되어 있다.<br>
 중간에 DATA BITS의 BIT갯수는 경우에 따라 달라진다.<br>
-![UART 1 frame](/assets/img/ti_uart_bitfield_polling/frame_type.png)<br>
-
+![UART 1 frame](/assets/img/ti_uart_bitfield_polling/frame_type.png)<br><br><br>
 Baud rate는 이 frame에서 비트의 전송속력을 의미한다.<br>
 그리고 frame을 수신할 때 1bit를 그대로 받는게 아니라, 1bit를 8-oversampling 혹은 16-oversampling을 해서 수신한다.<br>
 ![UART sampling rate](/assets/img/ti_uart_bitfield_polling/bclk.png)<br><br><br>
