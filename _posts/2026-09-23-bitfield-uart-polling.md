@@ -46,6 +46,22 @@ CLK이 Baud Generator로 input되고, output으로 BCLK을 만든다.
 #### example 1<br>
 16-oversampling, Baud rate 115200[bit/sec]라고 한다면 BCLK=16[cycle/bit]*115200[bit/sec]=대략 1.84[Mega cycle/sec]=1.84[Mhz]<br>
 
+## ti UART bitfield flow
+1. clock configuration
+1.1 XTAL ON
+1.2 XTAL을 PLL SRC로 set
+1.3 PLL을 sysclk으로 set
+   
+2. GPIO configuration
+2.1 GPIO 소유권 선택
+2.2 GPIO mux(mode selection)
+2.3 GPIO IN/OUT
+2.4 GPIO pull-up/pull down selection
+
+3. SCI configuration
+3.1 SCI clock config
+3.2 SCI BAUD config
+
 
 ## source code<br>
 https://github.com/Jmscoot/ti_bitfield_uart_polling.git
