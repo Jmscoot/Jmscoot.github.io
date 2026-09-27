@@ -22,14 +22,10 @@ Baud rate를 동일하게 설정한다.<br><br>
 ![UART tx/rx diagram](/assets/img/ti_uart_bitfield_polling/uart_diagram3.png)
 <br>UART통신은 Half Duplex방식과 Full Duplex 방식 둘 중 선택이 가능하다.<br><br><br>
 
-1 frame은 다음과 같이 구성되어 있다.
-
-![UART 1 frame](/assets/img/ti_uart_bitfield_polling/frame.png)
-
-Baud rate는 이 frame에서 비트의 전송속력을 의미한다.
-
-그리고 frame을 수신할 때 1bit를 그대로 받는게 아니라, 1bit를 8-oversampling 혹은 16-oversampling을 해서 수신한다.
-
+1 frame은 다음과 같이 구성되어 있다.<br>
+![UART 1 frame](/assets/img/ti_uart_bitfield_polling/frame.png)<br>
+Baud rate는 이 frame에서 비트의 전송속력을 의미한다.<br>
+그리고 frame을 수신할 때 1bit를 그대로 받는게 아니라, 1bit를 8-oversampling 혹은 16-oversampling을 해서 수신한다.<br>
 ![UART sampling rate](/assets/img/ti_uart_bitfield_polling/bclk.png)
 
 
