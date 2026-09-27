@@ -22,6 +22,7 @@ Baud rate를 동일하게 설정한다.<br><br>
 ![UART tx/rx diagram](/assets/img/ti_uart_bitfield_polling/uart_diagram3.png)
 <br>UART통신은 Half Duplex방식과 Full Duplex 방식 둘 중 선택이 가능하다.<br><br><br>
 
+#### Frame 구조<br>
 1 frame은 다음과 같이 구성되어 있다.<br>
 ![UART 1 frame](/assets/img/ti_uart_bitfield_polling/frame.png)<br>
 1 start bit+DATA BITS+1 stop bit로 구성되어 있다.<br>
@@ -31,7 +32,7 @@ Baud rate는 이 frame에서 비트의 전송속력을 의미한다.<br>
 그리고 frame을 수신할 때 1bit를 그대로 받는게 아니라, 1bit를 8-oversampling 혹은 16-oversampling을 해서 수신한다.<br>
 ![UART sampling rate](/assets/img/ti_uart_bitfield_polling/bclk.png)<br><br><br>
 
-## UART Receiver/Transmitter의 구조<br>
+#### UART Receiver/Transmitter의 구조<br>
 ![Diagram](/assets/img/ti_uart_bitfield_polling/block_diagram2.png)<br><br>
 
 좀 더 간략화한 구조는 아래와 같다...<br>
@@ -42,6 +43,10 @@ serial data송신(1bit씩)->송신 FIFO에 1bit씩 누적->송신 FIFO에 1Byte 
 ->Receiver FIFO에서 1bit 단위로 값을 꺼내옴<br><br>
 
 CLK이 Baud Generator로 input되고, output으로 BCLK을 만든다.
+#### example 1
+16-oversampling, Baud rate 115200[bit/sec]라고 한다면 BCLK=16[cycle/bit]*115200[bit/sec]=대략 1.84[Mega cycle/sec]=1.84[Mhz]<br>
 
-## example 1
-16-oversampling, Baud rate 115200[bit/sec]라고 한다면 BCLK=16[cycle/bit]*115200[bit/sec]=대략 1.84[Mega cycle/sec]=1.84[Mhz]
+
+
+## source code<br>
+https://github.com/Jmscoot/ti_bitfield_uart_polling.git
