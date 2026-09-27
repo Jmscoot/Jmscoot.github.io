@@ -23,6 +23,8 @@ Baud rate는 이 frame에서 비트의 전송속력을 의미한다.
 
 ![UART sampling rate](/assets/img/ti_uart_bitfield_polling/bclk.png)
 
+
+
 ## UART Receiver/Transmitter의 구조
 
 ![Diagram](/assets/img/ti_uart_bitfield_polling/block_diagram2.png)
