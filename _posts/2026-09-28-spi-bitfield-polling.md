@@ -41,11 +41,17 @@ trailing edge에서 상승한다.<br><br>
 데이터 값을 샘플링 할 건지, 샘플링 시점을 정의한다.<br>
 예를 들어 CPHA=0이면 leading edge에서 데이터 값을 샘플링하고, CPHA=1이면 trailing edge에서<br>
 데이터 값을 샘플링한다.<br>
+**주의** Motorola 표준과 TI 표준 2종류가 있다! 이 글에서는 Motorola 표준 기준으로 설명한다.<br><br><br>
+
+### 간단한 예시<br>
+CPOL=1 이므로 idle은 레벨 1, 즉 초기 clock의 위치는 1의 위치. CPHA=0 이므로, leading edge에서 데이터 값을<br>
+샘플링한다.<br>
+leading edge는 1에서 0으로 하강하는 하강엣지이다.
 ![SPI CPHA, CPOL에 따른 변화](/assets/img/spi_bitfield_polling/cpha_cpol.png)<br><br>
 
 
-#### UART Receiver/Transmitter의 구조<br>
-![Diagram](/assets/img/ti_uart_bitfield_polling/block_diagram2.png)<br><br>
+#### SPI Receiver/Transmitter의 구조<br>
+![Diagram](/assets/img/spi_bitfield_polling/structure.png)<br><br>
 
 좀 더 간략화한 구조는 아래와 같다...<br>
 ![Diagram2](/assets/img/ti_uart_bitfield_polling/parallel.png)<br>
