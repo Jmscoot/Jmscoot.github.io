@@ -62,13 +62,20 @@ TI F28379D TRM의 SPI chapter에서도 해당 내용이 명시돼있다.<br>
 
 
 좀 더 간략화한 구조는 아래와 같다...<br>
-![SPI data 전송은 tx/rx가 동시에 발생해야된다.](/assets/img/spi_bitfield_polling/ti_master_slave_operation.png)<br><br>
+![SPI data 전송은 tx/rx가 동시에 발생해야된다.](/assets/img/spi_bitfield_polling/ti_master_slave_operation.png)<br><br><br><br>
 
-CLK이 Baud Generator로 input되고, output으로 BCLK을 만든다.
-#### example 1<br>
-16-oversampling, Baud rate 115200[bit/sec]라고 한다면 BCLK=16[cycle/bit]*115200[bit/sec]=대략 1.84[Mega cycle/sec]=1.84[Mhz]<br>
+#### 오버샘플링
+SPI는 동기식(synchronous) 통신이라 1비트당 1번, 클럭 엣지에서 한 번만 샘플링한다.<br>
+UART가 oversampling을 하는 이유는 비동기식이라 수신 측이 송신 측의 클럭을 모르기 때문에<br>
+수신 측이 스스로 해결해야 하는 문제가 두 가지 있습니다.<br><br>
 
-## ti UART bitfield flow
+첫번째, 비트 중앙 찾기: start bit의 하강 엣지를 감지한 뒤, 자기 클럭으로 시간을 세어 각 비트의 가운데 지점을 추정해야 한다.<br>
+16배 oversampling이면 한 비트를 16조각으로 나눠 보면서 8번째 조각 근처를 샘플링한다.<br><br>
+
+두번째, 클럭 오차 흡수와 노이즈 판정: 양쪽 baud rate가 조금씩 다르므로, 한 프레임 동안 누적되는 오차를 견딜 여유가 필요하다.<br>
+반면에 SPI는 클럭으로 동기화하기에 오버샘플링이 불필요하다.<br><br><br>
+
+## ti SPI bitfield flow
 1. clock configuration<br>
 1.1 XTAL ON<br>
 1.2 XTAL을 PLL SRC로 set<br>
@@ -80,13 +87,8 @@ CLK이 Baud Generator로 input되고, output으로 BCLK을 만든다.
 2.3 GPIO IN/OUT<br>
 2.4 GPIO pull-up/pull down selection<br>
 
-3. SCI configuration<br>
-3.1 SCI clock config<br>
-3.2 SCI BAUD config<br>
-3.3 SCI data bit config<br>
-3.4 SCI TX, RX 활성화<br>
-3.5 SCI SWRESET<br>
+3. SPI configuration<br>
 
 
 ## source code<br>
-https://github.com/Jmscoot/ti_bitfield_uart_polling.git
+https://github.com/Jmscoot/ti_spi_master_bitfield.git
