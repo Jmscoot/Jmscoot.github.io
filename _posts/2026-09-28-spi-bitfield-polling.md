@@ -30,8 +30,8 @@ clock, CS(chip select)가 사용된다.<br>
 데이터가 샘플링된다.<br>
 ![SPI data processing](/assets/img/spi_bitfield_polling/spi_tx_rx.png)<br><br>
 
-또 SPI는 Clock Polarity(CPOL)와 Phase(CPHA) 선택이 가능하다.<br>
-Clock Polarity란 clock의 idle 레벨을 정의한다. 다시 말해, 전송하지 않을 때의 클락선을<br>
+또 SPI는 Clock Polarity(CPOL)와 Phase(CPHA) 선택에 따라 전송 방식에 차이가 발생한다.<br>
+먼저, Clock Polarity란 clock의 idle 레벨을 정의한다. 다시 말해, 전송하지 않을 때의 클락선을<br>
 Low 기준으로 둘 지, High 기준으로 둘 지에 대한 정의이다.<br>
 예를 들어서 CPOL=0이면 clock의 idle 레벨은 0으로 정의된다. 따라서 leading edge에서 상승하고<br>
 trailing edge에서 하강한다.<br>
