@@ -59,15 +59,10 @@ Master-Slave간 데이터 전송은 동시에 발생한다. 예를 들어서 Mas
 TI F28379D TRM의 SPI chapter에서도 해당 내용이 명시돼있다.<br>
 ![ti의 SPI Master-Slave relation](/assets/img/spi_bitfield_polling/ti_tx_rx_spi_op.png)
 따라서 SPI에서는 데이터 송수신이 동시에 발생한다.<br><br>
-![ti의 SPI Master-Slave relation](/assets/img/spi_bitfield_polling/ti_spi_structure.png)<br><br>
-![SPI data 전송은 tx/rx가 동시에 발생해야된다.](/assets/img/spi_bitfield_polling/ti_master_slave_operation.png)<br><br>
+
 
 좀 더 간략화한 구조는 아래와 같다...<br>
-![Diagram2](/assets/img/ti_uart_bitfield_polling/parallel.png)<br>
-serial data송신(1bit씩)->송신 FIFO에 1bit씩 누적->송신 FIFO에 1Byte 데이터가 shift register에 1Byte 단위로 송신<br>
-->shift register의 값 1Byte를 Parallel to Serial(1bit 단위 송신)<br>
-->shift register로 1bit값이 누적되어 1Byte 저장->Serial to Parallel로 shift register의 1Byte 데이터가 Receiver FIFO로 송신<br>
-->Receiver FIFO에서 1bit 단위로 값을 꺼내옴<br><br>
+![SPI data 전송은 tx/rx가 동시에 발생해야된다.](/assets/img/spi_bitfield_polling/ti_master_slave_operation.png)<br><br>
 
 CLK이 Baud Generator로 input되고, output으로 BCLK을 만든다.
 #### example 1<br>
