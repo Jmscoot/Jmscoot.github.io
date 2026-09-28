@@ -13,16 +13,17 @@ IDE: CCS 21.0.1
 
 ## SPI 프로토콜이란
 장치 간 데이터 전송을 클럭을 사용한 동기방식으로 수행하는 통신규약 중 하나이며,
-물리계층 인터페이스로 single ended CMOS, LVDS가 주로 사용된다.
-UART와 달리 1 to 1 방식뿐만아니라 1 to N 방식도 가능하다.
-따라서 Chip Select 핀을 사용한다.
-또 클럭을 사용한 동기 통신이므로 비동기 통신에 비해 장거리 통신에 유리하다.
-하지만 clock을 마스터가 생성하기에, MISO의 경우 왕복지연이 발생한다는 문제점도
+물리계층 인터페이스로 single ended CMOS, LVDS가 주로 사용된다.<br>
+UART와 달리 1 to 1 방식뿐만아니라 1 to N 방식도 가능하다.<br.
+따라서 Chip Select 핀을 사용한다.<br>
+또 클럭을 사용한 동기 통신이므로 비동기 통신에 비해 장거리 통신에 유리하다.<br>
+하지만 clock을 마스터가 생성하기에, MISO의 경우 왕복지연이 발생한다는 문제점도<br>
 있다.<br><br>
+
 
 사용하는 핀으로 MOSI(master out slave in), MISO(master in slave out), 
 clock, CS(chip select)가 사용된다.<br>
-
+![SPI diagram](/assets/img/spi_bitfield_polling/스크린샷 2026-09-28 121119.png)<br>
 
 
 #### Frame 구조<br>
