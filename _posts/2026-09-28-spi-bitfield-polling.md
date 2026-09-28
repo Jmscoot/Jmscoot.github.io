@@ -1,4 +1,4 @@
----
+<img width="1242" height="646" alt="image" src="https://github.com/user-attachments/assets/37085cb2-da7f-4424-9325-ecccfd00f6ea" />---
 layout: post
 title: "SPI Polling 방식 BITFIELD 구현"
 date: 2026-09-28 00:55:00 +0900
@@ -75,6 +75,8 @@ UART가 oversampling을 하는 이유는 비동기식이라 수신 측이 송신
 두번째, 클럭 오차 흡수와 노이즈 판정: 양쪽 baud rate가 조금씩 다르므로, 한 프레임 동안 누적되는 오차를 견딜 여유가 필요하다.<br>
 반면에 SPI는 클럭으로 동기화하기에 오버샘플링이 불필요하다.<br><br><br>
 
+## ti SPI 요약
+![ti SPI 요약](/assets/img/spi_bitfield_polling/ti_spi.png)<br><br><br>
 ## ti SPI bitfield flow
 1. clock configuration<br>
 1.1 XTAL ON<br>
