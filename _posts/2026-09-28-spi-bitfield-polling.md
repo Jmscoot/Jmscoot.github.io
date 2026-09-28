@@ -23,7 +23,7 @@ UART와 달리 1 to 1 방식뿐만아니라 1 to N 방식도 가능하다.<br>
 
 사용하는 핀으로 MOSI(master out slave in), MISO(master in slave out), 
 clock, CS(chip select)가 사용된다.<br>
-![SPI diagram](/assets/img/spi_bitfield_polling/스크린샷 2026-09-28 121119.png)<br>
+![SPI diagram](/assets/img/spi_bitfield_polling/spi_diagram1.png)<br>
 
 
 #### Frame 구조<br>
