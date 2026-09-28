@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "UART Polling 방식 BITFIELD 구현"
-date: 2026-09-21 18:55:00 +0900
+title: "SPI Polling 방식 BITFIELD 구현"
+date: 2026-09-28 00:55:00 +0900
 categories: [임베디드, TI]
 tags: [TI, STM32, SPI, BITFIELD]
 ---
