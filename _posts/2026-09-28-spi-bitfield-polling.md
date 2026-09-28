@@ -55,9 +55,10 @@ shifter, data register, status register ...etc로 구성되어 있다.<br>
 ![Diagram](/assets/img/spi_bitfield_polling/structure.png)<br><br>
 
 Master-Slave간 데이터 전송은 동시에 발생한다. 예를 들어서 Master에서 Slave로 데이터를 수신할 때 Master가<br>
-보낼만한 유의미한 데이터가 없더라도, dummy data를 Slave에 Slave로부터의 데이터 수신과 동시에 보내야된다.<br>
-
+보낼만한 유의미한 데이터가 없더라도, Master가 데이터 전송을 하려면, dummy data를 Slave에 Slave로 부터의 데이터 수신과 동시에<br>
+보내야된다..<br><br>
 ![SPI Master-Slave relation](/assets/img/spi_bitfield_polling/master_slave_transmit.png)<br><br>
+![SPI data 전송은 tx/rx가 동시에 발생해야된다.](/assets/img/spi_bitfield_polling/shift_reg_data_tx.png)<br><br>
 
 좀 더 간략화한 구조는 아래와 같다...<br>
 ![Diagram2](/assets/img/ti_uart_bitfield_polling/parallel.png)<br>
