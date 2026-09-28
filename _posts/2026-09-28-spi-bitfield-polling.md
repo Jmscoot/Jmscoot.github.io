@@ -15,10 +15,9 @@ IDE: CCS 21.0.1
 장치 간 데이터 전송을 클럭을 사용한 동기방식으로 수행하는 통신규약 중 하나이며,<br>
 물리계층 인터페이스로 single ended CMOS, LVDS가 주로 사용된다.<br>
 UART와 달리 1 to 1 방식뿐만아니라 1 to N 방식도 가능하다.<br>
-따라서 Chip Select 핀을 사용한다.<br>
+따라서 Chip Select 핀을 사용한다.<br><br>
 또 클럭을 사용한 동기 통신이므로 비동기 통신에 비해 장거리 통신에 유리하다.<br>
-하지만 clock을 마스터가 생성하기에, MISO의 경우 왕복지연이 발생한다는 문제점도<br>
-있다.<br><br>
+하지만 clock을 마스터가 생성하기에, MISO의 경우 왕복지연이 발생한다는 문제점도 있다.<br><br>
 
 
 사용하는 핀으로 MOSI(master out slave in), MISO(master in slave out), 
@@ -26,15 +25,24 @@ clock, CS(chip select)가 사용된다.<br>
 ![SPI diagram](/assets/img/spi_bitfield_polling/spi_diagram1.png)<br>
 
 
-#### Frame 구조<br>
-1 frame은 다음과 같이 구성되어 있다.<br>
-![UART 1 frame](/assets/img/ti_uart_bitfield_polling/frame.png)<br>
-1 start bit+DATA BITS+1 stop bit로 구성되어 있다.<br>
-중간에 DATA BITS의 BIT갯수는 경우에 따라 달라진다.<br>
-![UART 1 frame](/assets/img/ti_uart_bitfield_polling/frame_type.png)<br><br><br>
-Baud rate는 이 frame에서 비트의 전송속력을 의미한다.<br>
-그리고 frame을 수신할 때 1bit를 그대로 받는게 아니라, 1bit를 8-oversampling 혹은 16-oversampling을 해서 수신한다.<br>
-![UART sampling rate](/assets/img/ti_uart_bitfield_polling/bclk.png)<br><br><br>
+#### 송수신 구조<br>
+먼저 CS핀이 High->Low로 내려간 동안 슬레이브가 선택되고, 이 구간에서 Clock 엣지에 맞춰,<br>
+데이터가 샘플링된다.<br>
+![SPI data processing](/assets/img/spi_bitfield_polling/spi_tx_rx.png)<br><br>
+
+또 SPI는 Clock Polarity(CPOL)와 Phase(CPHA) 선택이 가능하다.<br>
+Clock Polarity란 clock의 idle 레벨을 정의한다. 다시 말해, 전송하지 않을 때의 클락선을<br>
+Low 기준으로 둘 지, High 기준으로 둘 지에 대한 정의이다.<br>
+예를 들어서 CPOL=0이면 clock의 idle 레벨은 0으로 정의된다. 따라서 leading edge에서 상승하고<br>
+trailing edge에서 하강한다.<br>
+CPOL=1이면 clock의 idle 레벨은 1로 정의된다. 따라서 leading edge에서 하강하고<br>
+trailing edge에서 상승한다.<br><br>
+다음으로 CPHA는 leading edge에서 데이터 값을 샘플링 할 건지, 아니면 trailing edge에서<br>
+데이터 값을 샘플링 할 건지, 샘플링 시점을 정의한다.<br>
+예를 들어 CPHA=0이면 leading edge에서 데이터 값을 샘플링하고, CPHA=1이면 trailing edge에서<br>
+데이터 값을 샘플링한다.<br>
+![SPI CPHA, CPOL에 따른 변화](/assets/img/spi_bitfield_polling/cpha_cpol.png)<br><br>
+
 
 #### UART Receiver/Transmitter의 구조<br>
 ![Diagram](/assets/img/ti_uart_bitfield_polling/block_diagram2.png)<br><br>
