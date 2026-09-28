@@ -95,6 +95,12 @@ MSB부터 slave로 shifted 송신되면, slave측에서는 SPISOMI를 통해서 
 2.4 GPIO pull-up/pull down selection<br>
 
 3. SPI configuration<br>
+3.1 데이터 비트 8비트 설정
+3.2 MODE 0 (CPOL:0, CPHA:0)
+3.3 master_slave=1 (master mode로)
+3.4 BRR 레지스터 값 설정
+3.5 FIFO 사용 유무 설정
+3.6 SWRESET=1로 SPI start
 
 
 ## source code<br>
