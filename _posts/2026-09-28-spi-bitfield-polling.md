@@ -1,4 +1,4 @@
-<img width="1242" height="646" alt="image" src="https://github.com/user-attachments/assets/37085cb2-da7f-4424-9325-ecccfd00f6ea" />---
+<img width="1274" height="478" alt="image" src="https://github.com/user-attachments/assets/03fb7d60-7d86-4f3b-9ada-7adffe50d471" /><img width="1242" height="646" alt="image" src="https://github.com/user-attachments/assets/37085cb2-da7f-4424-9325-ecccfd00f6ea" />---
 layout: post
 title: "SPI Polling 방식 BITFIELD 구현"
 date: 2026-09-28 00:55:00 +0900
@@ -77,6 +77,11 @@ UART가 oversampling을 하는 이유는 비동기식이라 수신 측이 송신
 
 ## ti SPI 요약
 ![ti SPI 요약](/assets/img/spi_bitfield_polling/ti_spi.png)<br><br><br>
+ti spi master의 코드를 보면 다음과 같다. 먼저 master의 SPIDAT shift reg의 데이터가 SPISIMO를 통해서<br>
+MSB부터 slave로 shifted 송신되면, slave측에서는 SPISOMI를 통해서 LSB로 값이 shifted 수신된다.<br>
+그러면 slave의 SPIDAT shift reg에 저장된 값들이 SPIRXBUF로 이동되고, INT_FLAG가 1로 set된다.<br>
+
+![ti SPI master에서 데이터 송수신 절차](/assets/img/spi_bitfield_polling/ti_spi_code.png)<br>
 ## ti SPI bitfield flow
 1. clock configuration<br>
 1.1 XTAL ON<br>
