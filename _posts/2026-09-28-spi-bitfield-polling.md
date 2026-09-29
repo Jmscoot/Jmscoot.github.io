@@ -89,7 +89,7 @@ CPOL=0, CPHA=0이면 clock idle state = 0, 샘플링 지점은 trailing edge이�
 
 아래는 saleae 로직 애널라이저 SPI세팅에서 CPOL=0, CPHA=trailing edge로 선택했을 때 정상적으로 출력됨을 확인 가능하다.<br>
 ![saleae logic](/assets/img/spi_bitfield_polling/saleae.png)<br><br><br>
-## ti SPI bitfield flow
+## ti SPI bitfield flow<br>
 1. clock configuration<br>
 1.1 XTAL ON<br>
 1.2 XTAL을 PLL SRC로 set<br>
@@ -108,6 +108,16 @@ CPOL=0, CPHA=0이면 clock idle state = 0, 샘플링 지점은 trailing edge이�
 3.4 BRR 레지스터 값 설정<br>
 3.5 FIFO 사용 유무 설정<br>
 3.6 SWRESET=1로 SPI start<br>
+
+## 추가사항<br>
+SPITXBUF 레지스터에서 보낼 데이터를 SPIDAT shift 레지스터로 보내면 SPIchar 크기만큼만 MSB부터 shift 송신이 발생한 후,<br>
+남은 데이터는 별도의 처리 없이 다음 TX를 기다리게 된다. 그리고 다음 TX에서 SPITXBUF 레지스터가 값을 SPIDAT로 덮어쓰게 되면서<br>
+남은 데이터는 덮어써지게 된다.<br>
+따라서 원하는 데이터가 8but 이하의 경우 8 left shift를 해줘야 해당 데이터가 송신이 되게 된다.<br><br>
+![code](/assets/img/spi_bitfield_polling/code.png)<br>
+![reg](/assets/img/spi_bitfield_polling/reg.png)<br><br><br>
+
+
 
 
 ## source code<br>
