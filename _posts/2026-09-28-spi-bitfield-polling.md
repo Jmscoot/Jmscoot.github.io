@@ -1,4 +1,4 @@
----
+<img width="1132" height="1386" alt="image" src="https://github.com/user-attachments/assets/eca67edd-9f3b-4551-8ff8-02e708a34b36" />---
 layout: post
 title: "SPI Polling 방식 BITFIELD 구현"
 date: 2026-09-28 00:55:00 +0900
@@ -33,15 +33,16 @@ clock, CS(chip select)가 사용된다.<br>
 또 SPI는 Clock Polarity(CPOL)와 Phase(CPHA) 선택에 따라 전송 방식에 차이가 발생한다.<br>
 먼저, Clock Polarity란 clock의 idle 레벨을 정의한다. 다시 말해, 전송하지 않을 때의 클락선을<br>
 Low 기준으로 둘 지, High 기준으로 둘 지에 대한 정의이다.<br>
-예를 들어서 CPOL=0이면 clock의 idle 레벨은 0으로 정의된다. 따라서 leading edge에서 상승하고<br>
+STM32에서 MOROROLA 표준을 선택하면 CPOL=0이면 clock의 idle 레벨은 0으로 정의된다. 따라서 leading edge에서 상승하고<br>
 trailing edge에서 하강한다.<br>
 CPOL=1이면 clock의 idle 레벨은 1로 정의된다. 따라서 leading edge에서 하강하고<br>
 trailing edge에서 상승한다.<br><br>
 다음으로 CPHA는 leading edge에서 데이터 값을 샘플링 할 건지, 아니면 trailing edge에서<br>
 데이터 값을 샘플링 할 건지, 샘플링 시점을 정의한다.<br>
-예를 들어 CPHA=0이면 leading edge에서 데이터 값을 샘플링하고, CPHA=1이면 trailing edge에서<br>
+예를 들어 MOTOROLA 표준으로 CPHA=0이면 leading edge에서 데이터 값을 샘플링하고, CPHA=1이면 trailing edge에서<br>
 데이터 값을 샘플링한다.<br>
-**주의** Motorola 표준과 TI 표준 2종류가 있다! 이 글에서는 Motorola 표준 기준으로 설명한다.<br><br><br>
+**주의**TI C2000칩의 경우 CPOL은 MOTOROLA 표준과 동일하지만 CPHA는 MOTOROLA 표준과 반대로 CPHA=0이면 trailing edge에서 샘플링하고<br>
+CPHA=1이면 leading edge에서 샘플링한다.<br><br><br>
 
 ### 간단한 예시<br>
 CPOL=1 이므로 idle은 레벨 1, 즉 초기 clock의 위치는 1의 위치. CPHA=0 이므로, leading edge에서 데이터 값을<br>
@@ -79,9 +80,11 @@ UART가 oversampling을 하는 이유는 비동기식이라 수신 측이 송신
 ![ti SPI 요약](/assets/img/spi_bitfield_polling/ti_spi.png)<br><br><br>
 ti spi master의 코드를 보면 다음과 같다. 먼저 master의 SPIDAT shift reg의 데이터가 SPISIMO를 통해서<br>
 MSB부터 slave로 shifted 송신되면, slave측에서는 자동으로 SPISOMI를 통해서 LSB로 값이 shifted 수신된다.<br>
-그러면 slave의 SPIDAT shift reg에 저장된 값들이 SPIRXBUF로 이동되고, INT_FLAG가 1로 set된다.<br>
+그러면 slave의 SPIDAT shift reg에 저장된 값들이 SPIRXBUF로 이동되고, INT_FLAG가 1로 set된다.<br><br><br>
 
-![ti SPI master에서 데이터 송수신 절차](/assets/img/spi_bitfield_polling/ti_spi_code.png)<br>
+그리고 MOTOROLA 표준과 다르게 CPOL=0, CPHA=0이면 clock idle state = 0, 샘플링 지점은 trailing edge이다.<br>
+![ti SPI CPOL, CPHA example](/assets/img/spi_bitfield_polling/cpha_cpol_order.png)<br><br>
+![ti SPI master에서 데이터 송수신 절차](/assets/img/spi_bitfield_polling/ti_spi_code.png)<br><br><br>
 ## ti SPI bitfield flow
 1. clock configuration<br>
 1.1 XTAL ON<br>
