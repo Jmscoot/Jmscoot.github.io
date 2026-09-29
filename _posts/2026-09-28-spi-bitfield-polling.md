@@ -85,7 +85,10 @@ MSB부터 slave로 shifted 송신되면, slave측에서는 자동으로 SPISOMI�
 그리고 CPOL=0, CPHA=0이면 clock idle state = 0, 샘플링 지점은 leading edge인 MOTOROLA 표준과 다르게<br>
 CPOL=0, CPHA=0이면 clock idle state = 0, 샘플링 지점은 trailing edge이다.<br>
 ![ti SPI CPOL, CPHA example](/assets/img/spi_bitfield_polling/cpha_cpol_order.png)<br><br>
-![ti SPI master에서 데이터 송수신 절차](/assets/img/spi_bitfield_polling/ti_spi_code.png)<br><br><br>
+![ti SPI master에서 데이터 송수신 절차](/assets/img/spi_bitfield_polling/ti_spi_code.png)<br><br>
+
+아래는 saleae 로직 애널라이저 SPI세팅에서 CPOL=0, CPHA=trailing edge로 선택했을 때 정상적으로 출력됨을 확인 가능하다.<br>
+![saleae logic](/assets/img/spi_bitfield_polling/saleae.png)<br><br><br>
 ## ti SPI bitfield flow
 1. clock configuration<br>
 1.1 XTAL ON<br>
