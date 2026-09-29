@@ -1,4 +1,4 @@
-<img width="1132" height="1386" alt="image" src="https://github.com/user-attachments/assets/eca67edd-9f3b-4551-8ff8-02e708a34b36" />---
+---
 layout: post
 title: "SPI Polling 방식 BITFIELD 구현"
 date: 2026-09-28 00:55:00 +0900
