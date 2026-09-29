@@ -55,7 +55,7 @@ shifter, data register, status register ...etc로 구성되어 있다.<br>
 ![Diagram](/assets/img/spi_bitfield_polling/structure.png)<br><br>
 
 Master-Slave간 데이터 전송은 동시에 발생한다. 예를 들어서 Master에서 Slave로 데이터를 수신할 때 Master가<br>
-보낼만한 유의미한 데이터가 없더라도, Master가 데이터 전송을 하려면, dummy data를 Slave에 Slave로 부터의 데이터 수신과 동시에 보내야된다..<br> 
+보낼만한 유의미한 데이터가 없더라도, Master가 데이터 수신을 하면, 자동으로 shift reg의 data가 Slave로 보내지게 된다..<br> 
 TI F28379D TRM의 SPI chapter에서도 해당 내용이 명시돼있다.<br>
 ![ti의 SPI Master-Slave relation](/assets/img/spi_bitfield_polling/ti_tx_rx_spi_op.png)
 따라서 SPI에서는 데이터 송수신이 동시에 발생한다.<br><br>
@@ -78,7 +78,7 @@ UART가 oversampling을 하는 이유는 비동기식이라 수신 측이 송신
 ## ti SPI 요약
 ![ti SPI 요약](/assets/img/spi_bitfield_polling/ti_spi.png)<br><br><br>
 ti spi master의 코드를 보면 다음과 같다. 먼저 master의 SPIDAT shift reg의 데이터가 SPISIMO를 통해서<br>
-MSB부터 slave로 shifted 송신되면, slave측에서는 SPISOMI를 통해서 LSB로 값이 shifted 수신된다.<br>
+MSB부터 slave로 shifted 송신되면, slave측에서는 자동으로 SPISOMI를 통해서 LSB로 값이 shifted 수신된다.<br>
 그러면 slave의 SPIDAT shift reg에 저장된 값들이 SPIRXBUF로 이동되고, INT_FLAG가 1로 set된다.<br>
 
 ![ti SPI master에서 데이터 송수신 절차](/assets/img/spi_bitfield_polling/ti_spi_code.png)<br>
