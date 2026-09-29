@@ -82,7 +82,8 @@ ti spi master의 코드를 보면 다음과 같다. 먼저 master의 SPIDAT shif
 MSB부터 slave로 shifted 송신되면, slave측에서는 자동으로 SPISOMI를 통해서 LSB로 값이 shifted 수신된다.<br>
 그러면 slave의 SPIDAT shift reg에 저장된 값들이 SPIRXBUF로 이동되고, INT_FLAG가 1로 set된다.<br><br><br>
 
-그리고 MOTOROLA 표준과 다르게 CPOL=0, CPHA=0이면 clock idle state = 0, 샘플링 지점은 trailing edge이다.<br>
+그리고 CPOL=0, CPHA=0이면 clock idle state = 0, 샘플링 지점은 leading edge인 MOTOROLA 표준과 다르게<br>
+CPOL=0, CPHA=0이면 clock idle state = 0, 샘플링 지점은 trailing edge이다.<br>
 ![ti SPI CPOL, CPHA example](/assets/img/spi_bitfield_polling/cpha_cpol_order.png)<br><br>
 ![ti SPI master에서 데이터 송수신 절차](/assets/img/spi_bitfield_polling/ti_spi_code.png)<br><br><br>
 ## ti SPI bitfield flow
