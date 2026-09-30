@@ -48,19 +48,22 @@ CPHA=1이면 leading edge에서 샘플링한다.<br><br><br>
 STM32의 경우 CPOL=0이면 clock의 idle edge가 low, 1이면 clock의 idle edge가 high<br>
 CPHA=0이면 first edge 샘플링, CPHA=1이면 second edge 샘플링<br>
 TI의 경우 CPOL은 STM과 동일, CPHA는 반대. CPHA=0이면 second edge 샘플링, CPHA=1이면 first edge 샘플링<br><br>
+![TI SPI CPHA, CPOL에 따른 변화](/assets/img/spi_bitfield_polling/cpha_cpol.png)<br><br>
+![STM SPI CPHA, CPOL](/assets/img/spi_bitfield_polling/stm_cpha_cpol.png)<br><br><br><br>
 
-#### 간단한 예시<br>
-CPOL=1 이므로 idle은 레벨 1, 즉 초기 clock의 위치는 1의 위치. CPHA=0 이므로, leading edge에서 데이터 값을<br>
-샘플링한다.<br>
-leading edge는 1에서 0으로 하강하는 하강엣지이다.
-![SPI CPHA, CPOL에 따른 변화](/assets/img/spi_bitfield_polling/cpha_cpol.png)<br><br>
 
 
 #### SPI Receiver/Transmitter의 구조<br>
-TI Master의 경우 shifter, data register, status register ...etc로 구성되어 있다.<br>
+TI Master의 경우 shifter(SPIDAT), SPIRXBUF, SPITXBUF, data register, status register ...etc로 구성되어 있다.<br>
+송신의 경우 SPITXBUF에 먼저 보낼 데이터를 저장하고 있다가=>shifter(SPIDAT레지스터)에 값을 복사한 후 1bit씩 shift해서 전송한다.<br>
+
 ![Diagram](/assets/img/spi_bitfield_polling/structure.png)<br><br>
-STM Slave의 경우 
+STM Slave의 경우도 마찬가지로 shift register, TX buffer, RX buffer ...etc로 구성되어 있다.<br>
 ![Diagram](/assets/img/spi_bitfield_polling/stm_slave.png)<br><br>
+STM의 경우 TI와 다르게 SPI_DR레지스터는 TX/RX BUFFER에 접근하는 창구로 작용한다.<br>
+SPI_DR에 값을 write하면 TX BUFFER에 값이 쓰이고, 값을 READ하면 RX BUFFER로부터 값을 READ한다.<br>
+![data reg of stm](/assets/img/spi_bitfield_polling/stm_dr.png)
+
 
 Master-Slave간 데이터 전송은 동시에 발생한다. 예를 들어서 Master에서 Slave로 데이터를 수신할 때 Master가<br>
 보낼만한 유의미한 데이터가 없더라도, Master가 데이터 수신을 하면, 자동으로 shift reg의 data가 Slave로 보내지게 된다..<br> 
@@ -70,6 +73,10 @@ TI F28379D TRM의 SPI chapter에서도 해당 내용이 명시돼있다.<br>
 
 
 TI MASTER의 SPI 좀 더 간략화한 구조는 아래와 같다...<br>
+전송의 경우 SPITXBUF레지스터에 값을 올리면 shift register인 SPIDAT 레지스터에서 값을 복사해가서<br>
+shift연산을 하면서 값을 1bit씩 전송한다.<br>
+수신의 경우 shift register인 SPIDAT 레지스터에서 값이 shift 되면서 들어오면 SPIRXBUF 레지스터에서<br>
+값을 복사해간다.
 ![SPI data 전송은 tx/rx가 동시에 발생해야된다.](/assets/img/spi_bitfield_polling/ti_master_slave_operation.png)<br><br><br><br>
 
 #### 오버샘플링
