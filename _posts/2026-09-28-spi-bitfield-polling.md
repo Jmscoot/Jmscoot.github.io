@@ -69,7 +69,7 @@ TI F28379D TRM의 SPI chapter에서도 해당 내용이 명시돼있다.<br>
 따라서 SPI에서는 데이터 송수신이 동시에 발생한다.<br><br>
 
 
-좀 더 간략화한 구조는 아래와 같다...<br>
+TI MASTER의 SPI 좀 더 간략화한 구조는 아래와 같다...<br>
 ![SPI data 전송은 tx/rx가 동시에 발생해야된다.](/assets/img/spi_bitfield_polling/ti_master_slave_operation.png)<br><br><br><br>
 
 #### 오버샘플링
