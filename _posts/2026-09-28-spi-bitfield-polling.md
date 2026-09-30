@@ -133,7 +133,17 @@ SPITXBUF 레지스터에서 보낼 데이터를 SPIDAT shift 레지스터로 보
 따라서 원하는 데이터가 8but 이하의 경우 8 left shift를 해줘야 해당 데이터가 송신이 되게 된다.<br>
 아래 사진과 같이 shift 안하면 그냥 송신도 안되고, 덮어씌워지게 된다.<br>
 ![code](/assets/img/spi_bitfield_polling/code.png)<br><br>
-![reg](/assets/img/spi_bitfield_polling/reg.png)<br><br><br>
+![reg](/assets/img/spi_bitfield_polling/reg.png)<br><br><br><br>
+
+#### INT_FLAG, BUFFULL_FLAG
+INT_FLAG는 수신할 때 RX BUFF에 마지막 bit까지(16bit 데이터 전원 송수신 완료 시)<br>
+tx/rx를 완료 했을 때 발생.<br> 
+INT_FLAG는 RX BUFF를 읽으면 클리어된다. 0은 아직 16bit 데이터 전원 송수신이 완료되지 않음.<br>
+1은 16bit 데이터 전원 송수신이 완료됨을 나타냄.<br><br>
+
+BUFFFULL_FLAG는 TX BUFF에 새 bit가 들어오면 발생한다. 1로 set이 된다. 그리고 shiftreg(SPIDAT)의 이전 데이터가<br>전부 다 송신이 완료된 후 새 데이터가 shiftreg(SPIDAT)로 자동 로드되면 clear된다.<br>
+
+
 
 
 
