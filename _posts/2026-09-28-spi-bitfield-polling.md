@@ -48,7 +48,9 @@ CPHA=1이면 leading edge에서 샘플링한다.<br><br><br>
 STM32의 경우 CPOL=0이면 clock의 idle edge가 low, 1이면 clock의 idle edge가 high<br>
 CPHA=0이면 first edge 샘플링, CPHA=1이면 second edge 샘플링<br>
 TI의 경우 CPOL은 STM과 동일, CPHA는 반대. CPHA=0이면 second edge 샘플링, CPHA=1이면 first edge 샘플링<br><br>
+<TI SPI><br>
 ![TI SPI CPHA, CPOL에 따른 변화](/assets/img/spi_bitfield_polling/cpha_cpol.png)<br><br>
+<STM SPI><br>
 ![STM SPI CPHA, CPOL](/assets/img/spi_bitfield_polling/stm_cpha_cpol.png)<br><br><br><br>
 
 
