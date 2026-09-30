@@ -7,7 +7,7 @@ tags: [TI, STM32, SPI, BITFIELD]
 ---
 
 ## 환경
-칩: F28379D, F446RE
+칩: F28379D(MASTER), F446RE(SLAVE)
 IDE: CCS 21.0.1
 
 
@@ -44,7 +44,12 @@ trailing edge에서 상승한다.<br><br>
 **주의**TI C2000칩의 경우 CPOL은 MOTOROLA 표준과 동일하지만 CPHA는 MOTOROLA 표준과 반대로 CPHA=0이면 trailing edge에서 샘플링하고<br>
 CPHA=1이면 leading edge에서 샘플링한다.<br><br><br>
 
-### 간단한 예시<br>
+#### STM32(MOTOROLA) vs TI<br>
+STM32의 경우 CPOL=0이면 clock의 idle edge가 low, 1이면 clock의 idle edge가 high<br>
+CPHA=0이면 first edge 샘플링, CPHA=1이면 second edge 샘플링<br><br>
+TI의 경우 CPOL은 STM과 동일, CPHA는 반대. CPHA=0이면 second edge 샘플링, CPHA=1이면 first edge 샘플링<br><br>
+
+#### 간단한 예시<br>
 CPOL=1 이므로 idle은 레벨 1, 즉 초기 clock의 위치는 1의 위치. CPHA=0 이므로, leading edge에서 데이터 값을<br>
 샘플링한다.<br>
 leading edge는 1에서 0으로 하강하는 하강엣지이다.
@@ -52,8 +57,10 @@ leading edge는 1에서 0으로 하강하는 하강엣지이다.
 
 
 #### SPI Receiver/Transmitter의 구조<br>
-shifter, data register, status register ...etc로 구성되어 있다.<br>
+TI Master의 경우 shifter, data register, status register ...etc로 구성되어 있다.<br>
 ![Diagram](/assets/img/spi_bitfield_polling/structure.png)<br><br>
+STM Slave의 경우 
+![Diagram](/assets/img/spi_bitfield_polling/stm_slave.png)<br><br>
 
 Master-Slave간 데이터 전송은 동시에 발생한다. 예를 들어서 Master에서 Slave로 데이터를 수신할 때 Master가<br>
 보낼만한 유의미한 데이터가 없더라도, Master가 데이터 수신을 하면, 자동으로 shift reg의 data가 Slave로 보내지게 된다..<br> 
