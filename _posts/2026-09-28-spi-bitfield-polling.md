@@ -127,6 +127,7 @@ CPOL=0, CPHA=0이면 clock idle state = 0, 샘플링 지점은 trailing edge이�
 3.6 SWRESET=1로 SPI start<br>
 
 ## 추가사항<br>
+#### SPIDAT register의 값
 SPITXBUF 레지스터에서 보낼 데이터를 SPIDAT shift 레지스터로 보내면 SPIchar 크기만큼만 MSB부터 shift 송신이 발생한 후,<br>
 남은 데이터는 별도의 처리 없이 다음 TX를 기다리게 된다. 그리고 다음 TX에서 SPITXBUF 레지스터가 값을 SPIDAT로 덮어쓰게 되면서<br>
 남은 데이터는 덮어써지게 된다.<br><br>
