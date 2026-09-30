@@ -62,6 +62,7 @@ TI Master의 경우 shifter(SPIDAT), SPIRXBUF, SPITXBUF, data register, status r
 ![Diagram](/assets/img/spi_bitfield_polling/structure.png)<br><br>
 STM Slave의 경우도 마찬가지로 shift register, TX buffer, RX buffer ...etc로 구성되어 있다.<br>
 ![Diagram](/assets/img/spi_bitfield_polling/stm_slave.png)<br><br>
+![shift logic](/assets/img/spi_bitfield_polling/ti_shift.png)<br><br>
 STM의 경우 TI와 다르게 SPI_DR레지스터는 TX/RX BUFFER에 접근하는 창구로 작용한다.<br>
 SPI_DR에 값을 write하면 TX BUFFER에 값이 쓰이고, 값을 READ하면 RX BUFFER로부터 값을 READ한다.<br>
 ![data reg of stm](/assets/img/spi_bitfield_polling/stm_dr.png)
