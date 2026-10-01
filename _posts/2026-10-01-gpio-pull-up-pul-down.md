@@ -21,4 +21,9 @@ PULL UP/DOWN 설정을 하지 않으면 HIGH-Z상태에 놓이고, GPIO핀이 fl
 여전히 GPIO 입력은 1이 유지가 된다. 그리고 별도의 신호 입력이 없을 경우 항상 VCC로 땡겨주기에, VCC를 유지한다.<br><br>
 
 PULL DOWN일 때도 마찬가지로 입력 신호에 0이 들어오면 GND가 GND와 단락이 되므로 입력 신호는 0을 유지하고,<br>
-입력 신호에 1이 들어오면 
+입력 신호에 1이 들어오면 GND로 전류가 흐르면서 R_pulldown 저항에 전압이 걸려 여전히 입력 신호는 1을 유지한다.<br><br>
+
+#### 추가사항<br>
+사진의 protection diode의 용도는 V_high_voltage나 -V_high_voltage를 막기 위함이다.<br>
+V_high_voltage가 걸리면 VDD와 연결된 윗쪽 protection diode이 도통되어 VDD에 가까워진다.<br>
+아랫쪽 protection diode도 마찬가지의 원리로 동작한다.<br>
