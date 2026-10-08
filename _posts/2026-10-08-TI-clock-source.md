@@ -30,4 +30,5 @@ OSCCLK은 칩의 모든 클럭이 출발하는 "원천 클럭" 이다. 여러 cl
 
 ![sysclock](/assets/img/ti_clock/sysclk.png)<br>
 sysclock을 보면 (SYSCTL_OSCSRC_XTAL_SE | SYSCTL_IMULT(32) | SYSCTL_REFDIV(2) | SYSCTL_ODIV(2) | SYSCTL_SYSDIV(1) | <br>SYSCTL_PLL_ENABLE | SYSCTL_DCC_BASE_1)<br>
-이렇게 세팅되어 있다. 여기서 SYSCTL_OSCSRC_XTAL_SE=25Mhz이므로... 25Mhz*32/2/2/1=200Mhz가 SYSCLK으로 사용됨을 확인할 수 있다.
+이렇게 세팅되어 있다. 여기서 SYSCTL_OSCSRC_XTAL_SE=25Mhz이므로... 25Mhz*32/2/2/1=200Mhz가 SYSCLK으로 사용됨을 확인할 수 있다.<br>
+DEVICE_SETCLOCK_CFG은 칩의 register를 set해서, 실제 200Mhz자 sysclock으로 나오게 하기 위함이다.
