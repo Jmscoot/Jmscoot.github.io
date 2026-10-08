@@ -12,7 +12,7 @@ Clock은 곧 칩 세계에서의 시간이다.<br>
 명령어들은 파이프라인 단계(Fetch → Decode → Execute)를 거쳐 처리되고,<br>
 (아래는 TI C28x아키텍처의 파이프라인 단계로, 실제로는 이렇게 더 세분화 돼있다.)<br>
 ![ti pipeline](/assets/img/ti_clock/c28x_pipeline.png)<br><br>
-매 클럭에 맞춰 모든 단계가 동시에 한 칸씩 진행한다.<br>
+매 클럭에 맞춰 모든 단계가 동시에 한 행씩 진행한다.<br>
 ![ti pipe](/assets/img/ti_clock/pipeline_examp.png)<br><br>
 다만 다중 사이클 연산, 메모리 대기, 분기 등으로 stall이나 flush가 생기면 한 단계에 여러 클럭이 걸리거나 사이클이 낭비되기도 한다.<br>
 
