@@ -26,17 +26,8 @@ C2000 F28388D기준으로 SOC칩 내부 클럭 2개(INTOSC1, INTOSC2)가 존재�
 single-ended 3.3V XTAL, Crystal XTAL, Resonator XTAL이다.<br><br>
 클럭은 클럭 소스에서 분주를 거쳐서 CPU나 Peripheral들에게 공급이 된다.<br>
 OSCCLK은 칩의 모든 클럭이 출발하는 "원천 클럭" 이다. 여러 clock source 중 하나를 골라 OSCCLK으로 삼고,<br>
-여기서 PLL을 거쳐 CPU 클럭과 주변장치 클럭이 만들어진다. 그래서 마스터 레퍼런스라고 부른다.<br>
+여기서 PLL을 거쳐 CPU 클럭과 주변장치 클럭이 만들어진다. 그래서 마스터 레퍼런스라고 부른다.<br><br>
 
-#### 기본사양
-| 항목 | float | double |
-|---|---|---|
-| IEEE 754 명칭 | Single precision (binary32) | Double precision (binary64) |
-| 크기 | 32비트 (4바이트) | 64비트 (8바이트) |
-| 비트 구성 (부호/지수/가수) | 1 / 8 / 23 | 1 / 11 / 52 |
-| 지수 바이어스 | 127 | 1023 |
-| 유효 정밀도 (hidden bit 포함) | 24비트 | 53비트 |
-| 십진 유효숫자 | 약 7자리 | 약 15~16자리 |
-| 최소 정규수 (`FLT_MIN` / `DBL_MIN`) | ≈ 1.18 × 10⁻³⁸ | ≈ 2.23 × 10⁻³⁰⁸ |
-| 최대값 (`FLT_MAX` / `DBL_MAX`) | ≈ 3.40 × 10³⁸ | ≈ 1.80 × 10³⁰⁸ |
-| 머신 엡실론 (`FLT_EPSILON` / `DBL_EPSILON`) | ≈ 1.19 × 10⁻⁷ | ≈ 2.22 × 10⁻¹⁶ |
+![sysclock](/assets/img/ti_clock/sysclk.png)<br>
+sysclock을 보면 (SYSCTL_OSCSRC_XTAL_SE | SYSCTL_IMULT(32) | SYSCTL_REFDIV(2) | SYSCTL_ODIV(2) | SYSCTL_SYSDIV(1) | <br>SYSCTL_PLL_ENABLE | SYSCTL_DCC_BASE_1)<br>
+이렇게 세팅되어 있다. 여기서 SYSCTL_OSCSRC_XTAL_SE=25Mhz이므로... 25Mhz*32/2/2/1=200Mhz가 SYSCLK으로 사용됨을 확인할 수 있다.
