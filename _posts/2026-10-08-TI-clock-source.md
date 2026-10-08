@@ -3,7 +3,7 @@ layout: post
 title: "TI Clock Source에 대해"
 date: 2026-10-08 00:55:00 +0900
 categories: [임베디드, TI]
-tags: [TI, EXT, Clock Tree]
+tags: [TI, XTAL, Clock Tree]
 ---
 
 
