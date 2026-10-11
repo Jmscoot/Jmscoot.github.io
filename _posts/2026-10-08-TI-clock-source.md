@@ -9,7 +9,8 @@ tags: [TI, XTAL, Clock Tree]
 
 ## TI Clock<br>
 Clock은 곧 칩 세계에서의 시간이다.<br>
-명령어들은 파이프라인 단계(Fetch → Decode → Execute)를 거쳐 처리되고,<br>
+그리고 Clock 1cycle에 파이프라인의 단계 하나씩 처리가 된다.<br>
+명령어 하나는 파이프라인 단계(Fetch → Decode → Execute)를 거쳐 처리되고,<br>
 (아래는 TI C28x아키텍처의 파이프라인 단계로, 실제로는 이렇게 더 세분화 돼있다.)<br>
 ![ti pipeline](/assets/img/ti_clock/c28x_pipeline.png)<br><br>
 매 클럭에 맞춰 모든 단계가 동시에 한 행씩 진행한다.<br>
