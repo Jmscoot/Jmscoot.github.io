@@ -13,7 +13,7 @@ Baud rate는 비동기 통신에서 장치 간 동기화를 위한 수단이다.
 TI칩에서 SCI를 사용할 때 baud rate세팅은 16bit SCIHBAUD, SCILBAUD 레지스터에 각각 8bit값을 넣어 사용한다.<br>
 Divider = (SCIHBAUD<<8)|(SCILBAUD) 이고, Divider 값은 LSPCLK/(Baud rate*8-1)이다.<br><br>
 
-예를 들어서, LSPCLK가 100Mhz, Baud rate가 115,200bps라고 한다면 Divider 값은 약 109이고, 0110 1101 이므로 SCIHBAUD에는<br>
+> 예를 들어서, LSPCLK가 100Mhz, Baud rate가 115,200bps라고 한다면 Divider 값은 약 109이고, 0110 1101 이므로 SCIHBAUD에는<br>
 0000 0000, SCILBAUD에는 0110 1101이 들어간다.
 
 - `glfw3.h`: 컴파일 단계에서 함수 선언을 제공
