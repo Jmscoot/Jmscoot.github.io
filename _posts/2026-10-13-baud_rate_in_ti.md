@@ -9,12 +9,20 @@ tags: [Baud rate, SCI, TI]
 ## Baud rate
 Baud rate는 비동기 통신에서 장치 간 동기화를 위한 수단이다.
 
+## TI SCI 구조
+![sci 구조](/assets/img/ti_baud_rate/스크린샷 2026-10-13 143718.png)
+
 ## TI SCI에서의 Baud rate 세팅
 TI칩에서 SCI를 사용할 때 baud rate세팅은 16bit SCIHBAUD, SCILBAUD 레지스터에 각각 8bit값을 넣어 사용한다.<br>
 Divider = (SCIHBAUD<<8)|(SCILBAUD) 이고, Divider 값은 LSPCLK/(Baud rate*8-1)이다.<br><br>
 
 > 예를 들어서, LSPCLK가 100Mhz, Baud rate가 115,200bps라고 한다면 Divider 값은 약 109이고, 0110 1101 이므로 SCIHBAUD에는<br>
 0000 0000, SCILBAUD에는 0110 1101이 들어간다.
+
+- uart HW에 입력되어 분주까지 완료된 클럭을 "in clock" 이라 지칭하겠음
+in clock/divisor=BCLK
+
+
 
 - `glfw3.h`: 컴파일 단계에서 함수 선언을 제공
 - `libglfw3dll.a`: 링킹 단계에서 GLFW 함수 호출을 `glfw3.dll`로 연결 (임포트 라이브러리)
