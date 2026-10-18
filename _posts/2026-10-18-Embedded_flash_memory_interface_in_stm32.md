@@ -8,7 +8,7 @@ tags: [Flash memory, STM32]
 
 ## Flash memory 읽기 속력의 한계
 플래시 메모리의 R/W작업은 overload가 상당하다.<br>
-플래시 메모리 READ 작업은 실행되는 프로그램에 따라 32비트 명령어 4개 또는 16비트 명령어 8개에 해당하는 128비트의 데이터를 읽는다.<br>
+플래시 메모리 READ 작업은 실행되는 프로그램에 따라 32비트 명령어 4개 또는 16비트 명령어 8개에 해당하는 "128비트" 고정으로 데이터를 읽는다.<br>
 앞서 읽어 들인 명령어 라인을 실행하는 데 최소 4개의 CPU 사이클이(4CLK) 필요하다.<br>
 ![none fetch](/assets/img/flashmem/nonprefetch.png)<br><br>
 
