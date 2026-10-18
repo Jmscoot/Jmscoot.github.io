@@ -26,8 +26,10 @@ stm32f4xx_hal_msp.c에는 SPI로 쓸 gpio에 대한 pin세팅 작업을 하는 H
 그리고 main.c에는 MX_SPI1_Init이라는 API가 정의 및 main함수 초기에 호출이된다.<br>
 MX_SPI1_Init에서는 spi에 대한 configuration(SPI채널, SPI mode, 방향, 데이터크기 등등)이 이뤄진다.<br><br>
 
-main.c에 MX_SPI1_Init이 호출, MX_SPI1_Init에서 HAL_SPI_Init이 호출, HAL_SPI_Init에서 HAL_SPI_MspInit이 호출됨으로서<br>
-spi에 쓸 gpio clock config, spi로 쓸 gpio 핀 config, spi clock config, spi기본기능 config가 이뤄진다.<br><br>
+main.c에 MX_SPI1_Init이 호출, MX_SPI1_Init에서 HAL_SPI_Init이 호출, HAL_SPI_Init에서 HAL_SPI_MspInit이 호출됨을 확인 가능하다.<br><br>
+
+정리하면 spi에 쓸 gpio clock config, spi로 쓸 gpio 핀 config, spi clock config, spi기본기능 config가 이뤄진다.<br>
+따라서 register나 LL단위로 짜고 싶으면 위의 것들만 지켜서 API만들어 쓰면 된다...<br><br>
 
 본인의 경우 PWM은 register나 LL단위로 API를 짜는게 BLDC모터 컨트롤에 더 유용한거 같은데.. UART같은 경우 굳이 register나 LL단위로 다시<br>
 코드를 짜는 것이 번거로워 CUBE MX에서 hal을 주로 사용하는데.. 이런 경우 hal과 reg, LL을 섞어 쓰게 되고, 코드가 지저분해지고<br>
