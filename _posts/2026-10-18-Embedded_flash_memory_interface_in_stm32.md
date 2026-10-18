@@ -10,12 +10,16 @@ tags: [Flash memory, STM32]
 플래시 메모리 읽기 작업은 실행되는 프로그램에 따라 32비트 명령어 4개 또는 16비트 명령어 8개에 해당하는 128비트의 데이터를 읽는다.<br>
 따라서 순차적인 코드의 경우, 앞서 읽어 들인 명령어 라인을 실행하는 데 최소 4개의 CPU 사이클이 필요하다.<br><br>
 
-## Prefetch 기능
+#### Wait State 정의
+기본적으로 메모리에서 데이터 R/W는 느리기에... flash작업에서 CPU가 다른 작업을 못하고 소비되는 클럭을 말한다.<br>
+![wait state](/assets/img/flashmem/waitstate.png)<br><br>
+
+#### Prefetch 기능
 I-Code 버스에서의 프리페치(prefetch) 기능을 사용하면, CPU가 현재 명령어를 요청하는 동안 플래시 메모리로부터 그다음 명령어를 미리 읽어올 수 있다.<br>
 프리페치 기능은 FLASH_ACR 레지스터의 PRFTEN 비트를 설정하여 활성화할 수 있다..<br>
 
 
-## TI SCI에서의 Baud rate 세팅
+#### TI SCI에서의 Baud rate 세팅
 TI칩에서 SCI를 사용할 때 baud rate세팅은 16bit SCIHBAUD, SCILBAUD 레지스터에 각각 8bit값을 넣어 사용한다.<br>
 Divider = (SCIHBAUD<<8)|(SCILBAUD) 이고, Divider 값은 LSPCLK/(Baud rate*8-1)이다.<br><br>
 
