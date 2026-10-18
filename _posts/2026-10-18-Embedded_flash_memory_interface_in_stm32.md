@@ -14,7 +14,7 @@ tags: [Flash memory, STM32]
 
 
 #### Wait State 정의
-기본적으로 메모리에서 데이터 R/W는 느리기에... flash작업에서 CPU가 다른 작업을 못하고 flash를 기다리며 허비되는 클럭을 말한다.<br>
+기본적으로 메모리에서 데이타 R/W는 느리기에... flash작업에서 CPU가 다른 작업을 못하고 flash를 기다리며 허비되는 클럭을 말한다.<br>
 ![wait state](/assets/img/flashmem/waitstate.png)<br>
 그리고 전압이 낮을수록 flash를 read하는 속력이 느려지기 때문에 WS 1개당 시간이 더 길어지게(늘어지게)된다.<br>
 더 빨리 flash를 read하려면 더 높은 전압을 사용 CPU의 주파수를 높여야된다.<br>
@@ -27,54 +27,8 @@ tags: [Flash memory, STM32]
 
 그러면 Flash R/W 속력은 여전히 느리지만... 미리 flash에서 데이터를 읽어 바로바로 CPU에서 사용이 가능하다.<br>
 이 프리페치 기능은 FLASH_ACR 레지스터의 PRFTEN 비트를 설정하여 활성화할 수 있다..<br>
-![pipeline](/assets/img/flashmem/withprefetch.png)
+![pipeline](/assets/img/flashmem/withprefetch.png)<br>
+> 위의 사진을 보면 플래시에서 기계어로된 펌웨어에서 128비트 단위로 명령(instruction) 1,2,3,4를 읽어서(read)<br>
+이를 cpu에 넘기기(gives instruction 1,2,3,4)까지 시간이 걸린다. 하지만 inst 1,2,3,4를 gives하면서<br>
+prefetch를 통해, read ins 5,6,7,8을 함으로써, 다음 inst gives까지 시간 단축이 가능하다.<br>
 
-
-#### TI SCI에서의 Baud rate 세팅
-TI칩에서 SCI를 사용할 때 baud rate세팅은 16bit SCIHBAUD, SCILBAUD 레지스터에 각각 8bit값을 넣어 사용한다.<br>
-Divider = (SCIHBAUD<<8)|(SCILBAUD) 이고, Divider 값은 LSPCLK/(Baud rate*8-1)이다.<br><br>
-
-> 예를 들어서, LSPCLK가 100Mhz, Baud rate가 115,200bps라고 한다면 Divider 값은 약 109이고, 0110 1101 이므로 SCIHBAUD에는<br>
-0000 0000, SCILBAUD에는 0110 1101이 들어간다.
-
-- uart HW에 입력되어 분주까지 완료된 클럭을 "in clock" 이라 지칭하겠음
-in clock/divisor=BCLK
-
-
-
-- `glfw3.h`: 컴파일 단계에서 함수 선언을 제공
-- `libglfw3dll.a`: 링킹 단계에서 GLFW 함수 호출을 `glfw3.dll`로 연결 (임포트 라이브러리)
-- `glfw3.dll`: 실행 단계에서 실제 코드가 로드됨. 실행파일과 같은 폴더나 `PATH`에 있어야 한다.
-
-### 32bit vs 64bit 라이브러리
-
-라이브러리는 32bit용과 64bit용이 따로 있고, 한 프로세스 안에서 섞을 수 없다. 64bit 실행파일은 32bit DLL을 로드하지 못하고, 링크 단계에서도 아키텍처가 다른 `.a`/`.lib`는 거부된다.
-
-| 목록 | 32bit | 64bit |
-|------|-------|-------|
-| DAQ grabber lib | `USB3-FRM13.dll` | `USB3-FRM13_x64.dll` |
-| GLFW 런타임 | `glfw3.dll` | `glfw3.dll` |
-| GLFW 임포트 lib | `libglfw3dll.a` | `libglfw3dll.a` |
-| GLEW | `glew32.dll`, `glew32.lib` | `glew32.dll`, `glew32.lib` |
-| pthread | `libwinpthread-1.dll` | `libwinpthread-1.dll` |
-
-> 파일 이름이 같아도 내용은 다른 바이너리다(GLEW는 64bit도 `glew32`라는 이름을 쓴다). 이름이 아니라 어느 배포판(32/64) 폴더에서 가져왔는지로 구분해야 한다.
-
-## 정적 vs 동적 라이브러리
-
-| 항목 | 정적 라이브러리 | 동적 라이브러리 |
-|------|---------------|---------------|
-| 코드가 들어가는 시점 | 링킹 | 실행(로딩) |
-| 실행파일 크기 | 큼 (라이브러리 코드 포함) | 작음 (참조 정보만 포함) |
-| 배포 | 실행파일 하나로 끝 | DLL을 같이 배포해야 함 |
-| 메모리 | 프로그램마다 각자 복사본 보유 | 여러 프로세스가 같은 코드 페이지를 공유 가능 |
-| 업데이트 | 라이브러리가 바뀌면 다시 링크 | DLL만 교체 가능 (ABI가 같을 때) |
-| 주요 문제 | 실행파일 비대화 | DLL 누락, 버전/아키텍처 불일치 |
-
-**정적 라이브러리**는 링킹할 때 필요한 코드가 실행파일에 직접 복사된다. 프로그램마다 복사본을 갖기 때문에 실행파일이 커지지만, 실행할 때 외부 파일이 필요 없다.
-
-**동적 라이브러리**는 링킹할 때 참조만 연결해 두고, 실행할 때 OS 로더가 DLL을 메모리에 올려 주소를 채운다. 같은 DLL을 쓰는 프로세스들이 코드를 공유할 수 있어 메모리와 디스크를 아끼고, DLL만 교체해서 업데이트할 수 있다. 대신 실행 환경에 맞는 DLL이 없으면 프로그램이 시작되지 않는다.
-
-## 임베디드에서는
-
-베어메탈/RTOS 기반 MCU(STM32 등)에는 DLL을 로드해 줄 OS 로더가 없으므로 사실상 정적 라이브러리(`.a`)만 쓴다. CMSIS-DSP 같은 라이브러리도 `.a`로 제공되어 링크 시점에 펌웨어 이미지에 포함된다. 동적 라이브러리(`.so`)는 임베디드 리눅스 환경에서 쓰인다.
