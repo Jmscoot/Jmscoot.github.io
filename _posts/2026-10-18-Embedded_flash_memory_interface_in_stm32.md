@@ -9,12 +9,14 @@ tags: [Flash memory, STM32]
 ## Flash memory 읽기 속력의 한계
 플래시 메모리의 R/W작업은 overload가 상당하다.<br>
 플래시 메모리 READ 작업은 실행되는 프로그램에 따라 32비트 명령어 4개 또는 16비트 명령어 8개에 해당하는 128비트의 데이터를 읽는다.<br>
-앞서 읽어 들인 명령어 라인을 실행하는 데 최소 4개의 CPU 사이클이(4CLK) 필요하다.<br><br>
+앞서 읽어 들인 명령어 라인을 실행하는 데 최소 4개의 CPU 사이클이(4CLK) 필요하다.<br>
+![none fetch](/assets/img/flashmem/nonprefetch.png)<br><br>
+
 
 #### Wait State 정의
 기본적으로 메모리에서 데이터 R/W는 느리기에... flash작업에서 CPU가 다른 작업을 못하고 소비되는 클럭을 말한다.<br>
-![wait state](/assets/img/flashmem/waitstate.png)<br>
-![none fetch](/assets/img/flashmem/nonprefetch.png)<br><br>
+![wait state](/assets/img/flashmem/waitstate.png)<br><br>
+
 #### Prefetch 기능
 앞선 느린 Flash의 R/W 단점을 극복하기 위해.. I-Code 버스에서의 프리페치(prefetch) 기능을 사용하면, 플래시 인터페이스가 이전에 읽은 128비트를 CPU에 주는 동안,<br>
 다음 128비트를 플래시에서 미리 읽는다. <br>
