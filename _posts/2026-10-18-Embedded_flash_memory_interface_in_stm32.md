@@ -16,8 +16,9 @@ tags: [Flash memory, STM32]
 #### Wait State 정의
 기본적으로 메모리에서 데이타 R/W는 느리기에... flash작업에서 CPU가 다른 작업을 못하고 flash를 기다리며 허비되는 클럭을 말한다.<br>
 ![wait state](/assets/img/flashmem/waitstate.png)<br>
-그리고 전압이 낮을수록 flash를 read하는 속력이 느려지기 때문에 WS 1개당 시간이 더 길어지게(늘어지게)된다.<br>
-더 빨리 flash를 read하려면 더 높은 전압을 사용 CPU의 주파수를 높여야된다.<br>
+> 그리고 전압이 낮을수록 같은 HCLK에서 WS가 더 많아지게 된다.(더 많은 WS갯수*1/HCLK가 wait 시간이므로 더 많이 기다려야 된다)<br>
+그리고 WS 갯수가 같을 경우 전압이 낮을수록 HCLK이 더 낮아진다.(WS갯수*더 긴 1/HCLK이 wait 시간이므로 더 많이 기다려야 된다)<br>
+더 빨리 flash를 read하려면 더 높은 전압을 사용해야된다.<br>
 ![overdrive](/assets/img/flashmem/overdrive.png)<br><br>
 
 
