@@ -2,8 +2,8 @@
 layout: post
 title: "HAL LIB"
 date: 2026-10-18 10:55:00 +0900
-categories: [임베디드, 빌드]
-tags: [라이브러리, STM32]
+categories: [임베디드, STM32]
+tags: [펌웨어 구조, STM32]
 ---
 
 # HAL LIB
