@@ -14,7 +14,7 @@ tags: [Flash memory, STM32]
 
 
 #### Wait State 정의
-기본적으로 메모리에서 데이터 R/W는 느리기에... flash작업에서 CPU가 다른 작업을 못하고 소비되는 클럭을 말한다.<br>
+기본적으로 메모리에서 데이터 R/W는 느리기에... flash작업에서 CPU가 다른 작업을 못하고 flash를 기다리며 허비되는 클럭을 말한다.<br>
 ![wait state](/assets/img/flashmem/waitstate.png)<br><br>
 
 #### Prefetch 기능
