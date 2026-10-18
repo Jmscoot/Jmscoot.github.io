@@ -15,7 +15,11 @@ tags: [Flash memory, STM32]
 
 #### Wait State 정의
 기본적으로 메모리에서 데이터 R/W는 느리기에... flash작업에서 CPU가 다른 작업을 못하고 flash를 기다리며 허비되는 클럭을 말한다.<br>
-![wait state](/assets/img/flashmem/waitstate.png)<br><br>
+![wait state](/assets/img/flashmem/waitstate.png)<br>
+그리고 전압이 낮을수록 flash를 read하는 속력이 느려지기 때문에 WS 1개당 시간이 더 길어지게(늘어지게)된다.<br>
+더 빨리 flash를 read하려면 더 높은 전압을 사용 CPU의 주파수를 높여야된다.<br>
+![overdrive](/assets/img/flashmem/overdrive.png)<br><br>
+
 
 #### Prefetch 기능
 앞선 느린 Flash의 R/W 단점을 극복하기 위해.. I-Code 버스에서의 프리페치(prefetch) 기능을 사용하면, 플래시 인터페이스가 이전에 읽은 128비트를 CPU에 주는 동안,<br>
