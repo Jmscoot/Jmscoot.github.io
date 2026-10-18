@@ -31,6 +31,12 @@ main.c에 MX_SPI1_Init이 호출, MX_SPI1_Init에서 HAL_SPI_Init이 호출, HAL
 정리하면 spi에 쓸 gpio clock config, spi로 쓸 gpio 핀 config, spi clock config, spi기본기능 config가 이뤄진다.<br>
 따라서 register나 LL단위로 짜고 싶으면 위의 것들만 지켜서 API만들어 쓰면 된다...<br><br>
 
+STM32 펌웨어 계층구조는 아래와 같다.<br>
+![stm32 structure](/assets/img/hal/hal_structure.png)<br>
+CMSIS헤더도 없는 C수준에서 low코드를 짤 때는 주소지에 대한 #define도 없으니 직접 주소지도 데이터시트 보면서<br>
+*(volatile uint32_t *)0x40023844와 같이 0x40023844주소지의 값을 바꿔야된다...(RCC_APB2ENR레지스터의 주소이다.)<br>
+근데 CMSIS헤더라는 편한 헤더를 사용하면 RCC->APB2ENR와 같이 쓸 수 있다.<br>
+
 본인의 경우 PWM은 register나 LL단위로 API를 짜는게 BLDC모터 컨트롤에 더 유용한거 같은데.. UART같은 경우 굳이 register나 LL단위로 다시<br>
 코드를 짜는 것이 번거로워 CUBE MX에서 hal을 주로 사용하는데.. 이런 경우 hal과 reg, LL을 섞어 쓰게 되고, 코드가 지저분해지고<br>
 설정들이 헷갈리게 되어 이번 기회에 hal에 대해 정리하게 됨.
