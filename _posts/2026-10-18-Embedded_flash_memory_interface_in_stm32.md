@@ -7,16 +7,21 @@ tags: [Flash memory, STM32]
 ---
 
 ## Flash memory 읽기 속력의 한계
-플래시 메모리 읽기 작업은 실행되는 프로그램에 따라 32비트 명령어 4개 또는 16비트 명령어 8개에 해당하는 128비트의 데이터를 읽는다.<br>
-따라서 순차적인 코드의 경우, 앞서 읽어 들인 명령어 라인을 실행하는 데 최소 4개의 CPU 사이클이 필요하다.<br><br>
+플래시 메모리의 R/W작업은 overload가 상당하다.<br>
+플래시 메모리 READ 작업은 실행되는 프로그램에 따라 32비트 명령어 4개 또는 16비트 명령어 8개에 해당하는 128비트의 데이터를 읽는다.<br>
+앞서 읽어 들인 명령어 라인을 실행하는 데 최소 4개의 CPU 사이클이(4CLK) 필요하다.<br><br>
 
 #### Wait State 정의
 기본적으로 메모리에서 데이터 R/W는 느리기에... flash작업에서 CPU가 다른 작업을 못하고 소비되는 클럭을 말한다.<br>
-![wait state](/assets/img/flashmem/waitstate.png)<br><br>
-
+![wait state](/assets/img/flashmem/waitstate.png)<br>
+![none fetch](/assets/img/flashmem/nonprefetch.png)<br><br>
 #### Prefetch 기능
-I-Code 버스에서의 프리페치(prefetch) 기능을 사용하면, CPU가 현재 명령어를 요청하는 동안 플래시 메모리로부터 그다음 명령어를 미리 읽어올 수 있다.<br>
-프리페치 기능은 FLASH_ACR 레지스터의 PRFTEN 비트를 설정하여 활성화할 수 있다..<br>
+앞선 느린 Flash의 R/W 단점을 극복하기 위해.. I-Code 버스에서의 프리페치(prefetch) 기능을 사용하면, 플래시 인터페이스가 이전에 읽은 128비트를 CPU에 주는 동안,<br>
+다음 128비트를 플래시에서 미리 읽는다. <br>
+
+그러면 Flash R/W 속력은 여전히 느리지만... 미리 flash에서 데이터를 읽어 바로바로 CPU에서 사용이 가능하다.<br>
+이 프리페치 기능은 FLASH_ACR 레지스터의 PRFTEN 비트를 설정하여 활성화할 수 있다..<br>
+![pipeline](/assets/img/flashmem/withprefetch.png)
 
 
 #### TI SCI에서의 Baud rate 세팅
