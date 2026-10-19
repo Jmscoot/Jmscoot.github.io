@@ -2,7 +2,7 @@
 layout: post
 title: "ti에서의 baud rate설정"
 date: 2026-10-13 00:55:00 +0900
-categories: [임베디드, ti]
+categories: [임베디드, TI]
 tags: [Baud rate, SCI, TI]
 ---
 
